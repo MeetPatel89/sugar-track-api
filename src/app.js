@@ -7,16 +7,25 @@ const { NODE_ENV } = require('./config');
 
 const app = express();
 
+const bodyParser = express.json();
+
 const morganOption = (NODE_ENV === 'production')
     ? 'tiny'
     : 'common';
 
 app.use(morgan(morganOption));
+app.use(bodyParser);
 app.use(helmet());
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send('Hello, boilerplate!');
+    res.send('Hello, sugar-track-api!');
+});
+
+app.post('/', (req, res) => {
+    console.log(req.body);
+    res
+        .send('POST request received.');
 });
 
 app.use(errorHandler = (error, req, res, next) => {
