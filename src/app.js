@@ -24,8 +24,16 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     console.log(req.body);
+    console.log(req.query);
+    console.log(req.url);
+    console.log(req.originalUrl);
+    console.log(req.baseUrl);
+    console.log(req.path);
+    console.log(req.hostname);
+    
     res
-        .json(req.body);
+        .status(201)
+        .json(req.query);
 });
 
 app.use(errorHandler = (error, req, res, next) => {
