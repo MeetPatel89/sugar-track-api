@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     console.log(req.body);
     res
-        .send('POST request received.');
+        .json(req.body);
 });
 
 app.use(errorHandler = (error, req, res, next) => {
