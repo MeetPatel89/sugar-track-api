@@ -1,5 +1,7 @@
 require('dotenv').config()
 const knex = require('knex');
+const { types } = require('pg');
+const moment = require('moment');
 
 const knexInstance = knex({
     client: 'pg',
@@ -7,21 +9,11 @@ const knexInstance = knex({
 });
 
 knexInstance
-    .from('users')
-    .select('*')
-    .then(users => console.log(users));
-
-knexInstance
     .from('glucose_logs')
-    .select('*')
-    .then(glucose_logs => console.log(glucose_logs));
+    .select('date')
+    .then(dateArr => {
+        const dates = dateArr.map(dateObj => dateObj.date.toLocaleDateString());
+        console.log(dates);
+    });
 
-knexInstance
-    .from('meals_logs')
-    .select('*')
-    .then(meals_logs => console.log(meals_logs));
 
-knexInstance
-    .from('meds_logs')
-    .select('*')
-    .then(meds_logs => console.log(meds_logs));
