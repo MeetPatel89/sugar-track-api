@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
+const UsersService = require('./users-service');
 
 const app = express();
 
@@ -22,18 +23,14 @@ app.get('/', (req, res) => {
     res.send('Hello, sugar-track-api!');
 });
 
-app.post('/', (req, res) => {
-    console.log(req.body);
-    console.log(req.query);
-    console.log(req.url);
-    console.log(req.originalUrl);
-    console.log(req.baseUrl);
-    console.log(req.path);
-    console.log(req.hostname);
-    
-    res
-        .status(201)
-        .json(req.query);
+app.get('/users', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    UsersService
+        .getAllUsers(knexInstance)
+        .then(users => {
+            res.json(users);
+        })
+        .catch(next);
 });
 
 app.use(errorHandler = (error, req, res, next) => {
