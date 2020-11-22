@@ -33,6 +33,16 @@ app.get('/users', (req, res, next) => {
         .catch(next);
 });
 
+app.post('/users', (req, res, next) => {
+    const knexInstance = req.app.get('db')
+    const newUser = req.body;
+
+    UsersService
+        .addNewUser(knexInstance, newUser)
+        .then(newUser => res.json(newUser))
+        .catch(next);
+});
+
 app.use(errorHandler = (error, req, res, next) => {
     let response;
     if (NODE_ENV === 'production') {

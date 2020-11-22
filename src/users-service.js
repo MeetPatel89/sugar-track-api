@@ -3,7 +3,15 @@ const UsersService = {
         return knex
                 .select('*')
                 .from('users')
+    },
+    
+    addNewUser(knex, newUsers) {
+        return knex
+                .insert(newUsers)
+                .into('users')
+                .returning('*')
     }
+    
 };
 
 module.exports = UsersService;
