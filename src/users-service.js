@@ -10,6 +10,13 @@ const UsersService = {
                 .insert(newUsers)
                 .into('users')
                 .returning('*')
+    },
+
+    getUserByUsername(knex, username) {
+        return knex
+                .select('*')
+                .from('users')
+                
     }
     
 };

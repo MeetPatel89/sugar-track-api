@@ -43,6 +43,18 @@ app.post('/users', (req, res, next) => {
         .catch(next);
 });
 
+app.get('/users/:username', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const username = req.params.username;
+
+    UsersService
+        .getUserByUsername(knexInstance, username)
+        .then(user => res.json(user))
+        .catch(next);
+        
+
+})
+
 app.use(errorHandler = (error, req, res, next) => {
     let response;
     if (NODE_ENV === 'production') {
