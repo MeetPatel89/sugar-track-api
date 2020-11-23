@@ -16,7 +16,7 @@ const UsersService = {
         return knex
                 .select('*')
                 .from('users')
-                
+                .where({username})
     }
     
 };
