@@ -10,13 +10,12 @@ const GlucoseLogsService = {
                 .select('*')
                 .from('glucose_logs')
     },
-    getGlucoseLogsByDateTime(knex, date, time) {
+    getGlucoseLogsByDateTime(knex, dateTime) {
         return knex 
                 .select('*')
                 .from('glucose_logs')
                 .where({
-                    date,
-                    time
+                    dateTime
                 })
     },
     deleteGlucoseLogById(knex, id) {

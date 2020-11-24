@@ -70,27 +70,27 @@ app.post('/glucose_logs', (req, res, next) => {
 
 app.get('/glucose_logs', (req, res, next) => {
     const knexInstance = req.app.get('db')
-    const dateTime = req.query;
-    console.log(dateTime);
+    
     
         GlucoseLogsService
             .getGlucoseLogs(knexInstance)
-            .then(glucoseLogs => {
-                if (Object.keys(dateTime).length) {
-                    const glucoseLog = glucoseLogs.find(glucoseLog => glucoseLog.date.toLocaleDateString() === dateTime.date && glucoseLog.time === dateTime.time)
-                    console.log(glucoseLogs[0].date)
-                    console.log(glucoseLogs[0].date.toLocaleDateString());
-                    console.log(glucoseLogs[0].time)
-                    console.log(glucoseLog);
-                    return res.json(glucoseLog)
-                }
-                
-                return res.json(glucoseLogs);
-            }
+            .then(glucoseLogs =>  res.json(glucoseLogs)
+            
                 
             )
             .catch(next)
     
+})
+
+app.get('glucose_logs/:date_time', (req, res, next) => {
+    
+    const knexInstance = req.app.get('db');
+    const dateTime = req.params.date_time;
+
+    GlucoseLogsService
+        .getGlucoseLogsByDateTime(knexInstance, dateTime)
+        .then(glucoseLog => res.json(glucoseLog))
+        .catch(next)
 })
 
 app.use(errorHandler = (error, req, res, next) => {
