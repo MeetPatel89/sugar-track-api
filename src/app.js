@@ -59,9 +59,11 @@ app.get('/users/:username', (req, res, next) => {
 app.post('/glucose_logs', (req, res, next) => {
     const knexInstance = req.app.get('db');
     const newGlucoseLog = req.body;
-    res.status(201)
-        .send('Post newGlucose')
-    next();
+    
+    GlucoseLogsService
+        .insertGlucoseLog(knexInstance, newGlucoseLog)
+        .then(glucoseLog => res.json(glucoseLog))
+        .catch(next);
 
 
 })
