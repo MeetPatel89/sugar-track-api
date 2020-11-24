@@ -1,5 +1,11 @@
-const glucose_logs_service = {
-
+const GlucoseLogsService = {
+    insertGlucoseLog(knex, newGlucoseLog) {
+        return knex
+                .insert(newGlucoseLog)
+                .into('glucose_logs')
+                .returning('*')
+    }
 }
 
-module.exports = glucose_logs_service;
+module.exports = GlucoseLogsService;
+
