@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const UsersService = require('./users-service');
 const GlucoseLogsService = require('./glucose-logs-service');
+const MedsLogsService = require('./meds-logs-service');
 
 const app = express();
 
@@ -93,7 +94,14 @@ app.get('glucose_logs/:date_time', (req, res, next) => {
         .catch(next)
 })
 
+app.get('/meds_logs', (req, res, next) => {
+    const knexInstance = req.app.get('db');
 
+    MedsLogsService
+        .getMedsLogs(knexInstance)
+        .then(medsLogs => res.json(medsLogs))
+        .catch(next)
+})
 
 app.use(errorHandler = (error, req, res, next) => {
     let response;

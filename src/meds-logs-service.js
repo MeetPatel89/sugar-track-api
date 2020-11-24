@@ -1,13 +1,15 @@
 const MedsLogsService = {
     insertMedLog(knex, newMed) {
-        knex
+        return knex
             .inert(newMed)
             .into('meds_logs')
             .returning('*')
     },
     getMedsLogs(knex) {
-        knex
+        return knex
             .select('*')
             .from('meds_logs')
     }
 }
+
+module.exports = MedsLogsService;
