@@ -1,7 +1,7 @@
 const MedsLogsService = {
     insertMedLog(knex, newMed) {
         return knex
-            .inert(newMed)
+            .insert(newMed)
             .into('meds_logs')
             .returning('*')
     },
