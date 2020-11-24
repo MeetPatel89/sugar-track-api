@@ -9,6 +9,15 @@ const GlucoseLogsService = {
         return knex
                 .select('*')
                 .from('glucose_logs')
+    },
+    getGlucoseLogsByDateTime(knex, date, time) {
+        return knex 
+                .select('*')
+                .from('glucose_logs')
+                .where({
+                    date,
+                    time
+                })
     }
 }
 
