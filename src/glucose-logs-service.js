@@ -18,6 +18,13 @@ const GlucoseLogsService = {
                     date,
                     time
                 })
+    },
+    deleteGlucoseLogById(knex, id) {
+        return knex
+                .from('glucose_logs')
+                .where({id})
+                .delete()
+                .returning('*')
     }
 }
 
