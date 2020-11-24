@@ -4,6 +4,11 @@ const GlucoseLogsService = {
                 .insert(newGlucoseLog)
                 .into('glucose_logs')
                 .returning('*')
+    },
+    getGlucoseLogs(knex) {
+        return knex
+                .select('*')
+                .from('glucose_logs')
     }
 }
 
