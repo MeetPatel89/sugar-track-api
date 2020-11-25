@@ -6,7 +6,11 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const UsersService = require('./users-service');
 const GlucoseLogsService = require('./glucose-logs-service');
+<<<<<<< HEAD
 const MedsLogsService = require('./meds-logs-service');
+=======
+const MealsLogsService = require('./meals-logs-service');
+>>>>>>> features-meals-logs-service
 
 const app = express();
 
@@ -69,6 +73,7 @@ app.post('/glucose_logs', (req, res, next) => {
 
 })
 
+
 app.post('/meds_logs', (req, res, next) => {
     const knexInstance = req.app.get('db');
     const newMedLog = req.body;
@@ -77,6 +82,18 @@ app.post('/meds_logs', (req, res, next) => {
         .insertMedLog(knexInstance, newMedLog)
         .then(medLog => res.json(medLog))
         .catch(next)
+})
+
+app.post('/meals_logs', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const newMealsLog = req.body;
+
+    MealsLogsService
+        .insertMealsLog(knexInstance, newMealsLog)
+        .then(mealsLog => res.json(mealsLog))
+        .catch(next);
+        
+
 })
 
 app.get('/glucose_logs', (req, res, next) => {
@@ -91,6 +108,15 @@ app.get('/glucose_logs', (req, res, next) => {
             )
             .catch(next)
     
+})
+
+app.get('/meals_logs', (req, res, next) => {
+    const knexInstance = req.app.get('db')
+
+    MealsLogsService
+        .getMealsLogs(knexInstance)
+        .then(mealsLogs => res.json(mealsLogs))
+        .catch(next)
 })
 
 app.get('glucose_logs/:date_time', (req, res, next) => {
