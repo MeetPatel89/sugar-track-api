@@ -83,6 +83,15 @@ app.get('/glucose_logs', (req, res, next) => {
     
 })
 
+app.get('/meals_logs', (req, res, next) => {
+    const knexInstance = req.app.get('db')
+
+    MealsLogsService
+        .getMealsLogs(knexInstance)
+        .then(mealsLogs => res.json(mealsLogs))
+        .catch(next)
+})
+
 app.get('glucose_logs/:date_time', (req, res, next) => {
     
     const knexInstance = req.app.get('db');
