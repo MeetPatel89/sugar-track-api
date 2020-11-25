@@ -69,6 +69,17 @@ app.post('/glucose_logs', (req, res, next) => {
 
 })
 
+app.post('/meals_logs', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const newMealsLog = req.body;
+
+    MealsLogsService
+        .insertMealsLog(knexInstance, newMealsLog)
+        .then(mealsLog => res.json(mealsLog))
+        .catch(next);
+        
+})
+
 app.get('/glucose_logs', (req, res, next) => {
     const knexInstance = req.app.get('db')
     
