@@ -140,12 +140,24 @@ app.get('glucose_logs/:date_time', (req, res, next) => {
         .catch(next)
 })
 
+
 app.get('/meds_logs', (req, res, next) => {
     const knexInstance = req.app.get('db');
 
     MedsLogsService
         .getMedsLogs(knexInstance)
         .then(medsLogs => res.json(medsLogs))
+        .catch(next)
+}
+app.get('/meals_logs/:user_id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { sort } = req.query;
+    const { user_id } = req.params;
+
+    MealsLogsService
+        .sortMealsLogsByDateTime(knexInstance, user_id ,sort)
+        .then(sortedMealsLogs => res.json(sortedMealsLogs))
+
         .catch(next)
 })
 
