@@ -25,6 +25,11 @@ const GlucoseLogsService = {
                 .where({id})
                 .delete()
                 .returning('*')
+    },
+    sortGlucoseLogsByDateTime(knex) {
+        return knex
+                .from('glucose_logs')
+                .orderBy('date_time')
     }
 }
 
