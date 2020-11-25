@@ -9,6 +9,14 @@ const MedsLogsService = {
         return knex
             .select('*')
             .from('meds_logs')
+    },
+    getMedsByDateTime(knex, dateTime) {
+        return knex
+                .select('*')
+                .from('meds_logs')
+                .where({
+                    dateTime
+                })
     }
 }
 
