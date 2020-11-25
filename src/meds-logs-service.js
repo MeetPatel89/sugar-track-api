@@ -17,6 +17,14 @@ const MedsLogsService = {
                 .where({
                     dateTime
                 })
+    },
+    sortMedsLogsByDateTime(knex, user_id, sort) {
+        return knex
+                .from('meds_logs')
+                .where({
+                    user_id
+                })
+                .orderBy(sort)
     }
 }
 
