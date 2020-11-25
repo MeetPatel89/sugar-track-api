@@ -148,7 +148,7 @@ app.get('/meds_logs', (req, res, next) => {
         .getMedsLogs(knexInstance)
         .then(medsLogs => res.json(medsLogs))
         .catch(next)
-}
+})
 app.get('/meals_logs/:user_id', (req, res, next) => {
     const knexInstance = req.app.get('db');
     const { sort } = req.query;
