@@ -114,6 +114,17 @@ app.get('glucose_logs/:date_time', (req, res, next) => {
         .catch(next)
 })
 
+app.get('/meals_logs/:user_id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { sort } = req.query;
+    const { user_id } = req.params;
+
+    MealsLogsService
+        .sortMealsLogsByDateTime(knexInstance, user_id ,sort)
+        .then(sortedMealsLogs => res.json(sortedMealsLogs))
+        .catch(next)
+})
+
 app.use(errorHandler = (error, req, res, next) => {
     let response;
     if (NODE_ENV === 'production') {
