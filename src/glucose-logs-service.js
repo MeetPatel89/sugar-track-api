@@ -26,6 +26,14 @@ const GlucoseLogsService = {
                 .delete()
                 .returning('*')
     },
+    getGlucoseLogsByUserId(knex, user_id) {
+        return knex
+                .select('*')
+                .from('glucose_logs')
+                .where({
+                    user_id
+                })
+    },
     sortGlucoseLogsByDateTime(knex) {
         return knex
                 .from('glucose_logs')
