@@ -56,6 +56,17 @@ app.get('/users/:username', (req, res, next) => {
 
 })
 
+app.get('/glucose_logs/:user_id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { sort } = req.query;
+    const { user_id } = req.params;
+    GlucoseLogsService
+        .getGlucoseLogsByUserId(knexInstance, user_id)
+        .then(glucoseLogs => )
+        .catch(next)
+
+})
+
 app.post('/glucose_logs', (req, res, next) => {
     const knexInstance = req.app.get('db');
     const newGlucoseLog = req.body;
