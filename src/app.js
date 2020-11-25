@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const UsersService = require('./users-service');
 const GlucoseLogsService = require('./glucose-logs-service');
+const MealsLogsService = require('./meals-logs-service');
 
 const app = express();
 
