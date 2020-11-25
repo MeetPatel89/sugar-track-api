@@ -24,6 +24,27 @@ const GlucoseLogsService = {
                 .where({id})
                 .delete()
                 .returning('*')
+    },
+    getGlucoseLogsByUserId(knex, user_id) {
+        return knex
+                .select('*')
+                .from('glucose_logs')
+                .where({
+                    user_id
+                })
+    },
+    sortGlucoseLogs(knex, sort) {
+        return knex
+                .from('glucose_logs')
+                .orderBy(sort)
+    },
+    sortGlucoseLogsByDateTime(knex, user_id, sort) {
+        return knex
+                .from('glucose_logs')
+                .where({
+                    user_id
+                })
+                .orderBy(sort)
     }
 }
 

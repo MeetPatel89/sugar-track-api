@@ -6,8 +6,10 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const UsersService = require('./users-service');
 const GlucoseLogsService = require('./glucose-logs-service');
+
 const MedsLogsService = require('./meds-logs-service');
 const MealsLogsService = require('./meals-logs-service');
+
 
 const app = express();
 
@@ -55,6 +57,17 @@ app.get('/users/:username', (req, res, next) => {
         .then(user => res.json(user))
         .catch(next);
         
+
+})
+
+app.get('/glucose_logs/:user_id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { sort } = req.query;
+    const { user_id } = req.params;
+    GlucoseLogsService
+        .sortGlucoseLogsByDateTime(knexInstance, user_id, sort)
+        .then(sortedGlucoseLogs => res.json(sortedGlucoseLogs))
+        .catch(next)
 
 })
 
