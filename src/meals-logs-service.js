@@ -17,6 +17,14 @@ const MealsLogsService = {
                     user_id
                 })
                 .orderBy(sort)
+    },
+    getMealsLogsByUserId(knex, user_id) {
+        return knex
+                .from('meals_logs')
+                .select('*')
+                .where({
+                    user_id
+                })
     }
 }
 
