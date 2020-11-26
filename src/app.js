@@ -59,11 +59,11 @@ app.get('/users/:username', (req, res, next) => {
 
 app.get('/glucose_logs/:user_id', (req, res, next) => {
     const knexInstance = req.app.get('db');
-    const { sort } = req.query;
+    
     const { user_id } = req.params;
     GlucoseLogsService
-        .sortGlucoseLogsByDateTime(knexInstance, user_id, sort)
-        .then(sortedGlucoseLogs => res.json(sortedGlucoseLogs))
+        .getGlucoseLogsByUserId(knexInstance, user_id)
+        .then(glucoseLogs => res.json(glucoseLogs))
         .catch(next)
 
 })
