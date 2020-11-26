@@ -45,6 +45,14 @@ const GlucoseLogsService = {
                     user_id
                 })
                 .orderBy(sort)
+    },
+    sortAllLogsByDateTime(knex, user_id, sort) {
+        return knex
+                .from('glucose_logs', 'meals_logs', 'meds_logs')
+                .where({
+                    user_id
+                })
+                .orderBy(sort)
     }
 }
 
