@@ -25,6 +25,14 @@ const MedsLogsService = {
                     user_id
                 })
                 .orderBy(sort)
+    },
+    getMedsLogsByUserId(knex, user_id) {
+        return knex
+                .select('*')
+                .from('meds_logs')
+                .where({
+                    user_id
+                })
     }
 }
 
