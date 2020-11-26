@@ -164,10 +164,10 @@ app.get('/meals_logs/:user_id', (req, res, next) => {
 app.get('/meds_logs/:user_id', (req, res, next) => {
     const knexInstance = req.app.get('db');
     const { user_id } = req.params;
-    const { sort } = req.query;
+    
     MedsLogsService
-        .sortMedsLogsByDateTime(knexInstance, user_id, sort)
-        .then(sortedMedsLogs => res.json(sortedMedsLogs))
+        .getMedsLogsByUserId(knexInstance, user_id)
+        .then(medsLogs => res.json(medsLogs))
         .catch(next)
 })
 
