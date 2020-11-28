@@ -1,9 +1,9 @@
 INSERT INTO meals_logs
-    (meals, time, user_id, date)
+    (meals, user_id, date_time)
 VALUES 
-    ('Egg Sandwich', '9:00', 1, '2020-11-17'),
-    ('Rice', '12:30', 1, '2020-11-17'),
-    ('Heavy Dinner', '08:30', 1, '2020-11-17'),
-    ('Chocolate Sandwich', '9:00', 1, '2020-11-18'),
-    ('Chipotle', '12:30', 1, '2020-11-18'),
-    ('Super Heavy Dinner', '08:30', 1, '2020-11-18');
+    ('Egg Sandwich', 2, '2021-12-17 09:00'),
+    ('Rice', 2, '2021-12-17 12:30'),
+    ('Heavy Dinner', 2, '2021-12-17 08:30'),
+    ('Chocolate Sandwich', 2, '2021-12-18 09:00'),
+    ('Chipotle', 2, '2021-12-18 12:30'),
+    ('Super Heavy Dinner', 2, '2021-12-18 08:30');
