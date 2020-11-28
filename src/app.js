@@ -170,6 +170,12 @@ app.get('/meds_logs/:user_id', (req, res, next) => {
         .catch(next)
 })
 
+app.get('/logs', (req, res, next) => {
+    res.json('Get all logs')
+    next();
+    
+})
+
 app.use(errorHandler = (error, req, res, next) => {
     let response;
     if (NODE_ENV === 'production') {
