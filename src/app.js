@@ -171,9 +171,26 @@ app.get('/meds_logs/:user_id', (req, res, next) => {
 })
 
 app.get('/logs', (req, res, next) => {
-    res.json('Get all logs')
-    next();
-    
+    const knexInstance = req.app.get('db');
+    const logs = []
+    GlucoseLogsService
+        .getGlucoseLogs(knexInstance)
+        .then(glucoseLogs => {
+            logs.push(glucoseLogs);
+            MealsLogsService
+                .getMealsLogs(knexInstance)
+                .then(mealsLogs => {
+                    logs.push(mealsLogs);
+                    MedsLogsService
+                        .getMedsLogs(knexInstance)
+                        .then(medsLogs => {
+                            logs.push(medsLogs)
+                            res.json(logs)
+                        })
+                })
+        })
+        .catch(next)
+
 })
 
 app.use(errorHandler = (error, req, res, next) => {
