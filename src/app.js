@@ -176,15 +176,23 @@ app.get('/logs', (req, res, next) => {
     GlucoseLogsService
         .getGlucoseLogs(knexInstance)
         .then(glucoseLogs => {
-            logs.push(glucoseLogs);
+            logs.push(...glucoseLogs);
             MealsLogsService
                 .getMealsLogs(knexInstance)
                 .then(mealsLogs => {
-                    logs.push(mealsLogs);
+                    logs.push(...mealsLogs);
                     MedsLogsService
                         .getMedsLogs(knexInstance)
                         .then(medsLogs => {
-                            logs.push(medsLogs)
+                            logs.push(...medsLogs)
+                            console.log(logs);
+                            logs.sort((a, b) => {
+                                if (a.date_time < b.date_time) {
+                                    return -1
+                                } else {
+                                    return 1
+                                }
+                            })
                             res.json(logs)
                         })
                 })
