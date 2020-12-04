@@ -172,19 +172,20 @@ app.get('/meds_logs/:user_id', (req, res, next) => {
         .catch(next)
 })
 
-app.get('/logs', (req, res, next) => {
+app.get('/logs/:user_id', (req, res, next) => {
     const knexInstance = req.app.get('db');
+    const { user_id } = req.params;
     const logs = []
     GlucoseLogsService
-        .getGlucoseLogs(knexInstance)
+        .getGlucoseLogsByUserId(knexInstance, user_id)
         .then(glucoseLogs => {
             logs.push(...glucoseLogs);
             MealsLogsService
-                .getMealsLogs(knexInstance)
+                .getMealsLogsByUserId(knexInstance, user_id)
                 .then(mealsLogs => {
                     logs.push(...mealsLogs);
                     MedsLogsService
-                        .getMedsLogs(knexInstance)
+                        .getMedsLogsByUserId(knexInstance, user_id)
                         .then(medsLogs => {
                             logs.push(...medsLogs)
                             console.log(logs);
