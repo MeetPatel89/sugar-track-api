@@ -44,7 +44,9 @@ app.post('/users', (req, res, next) => {
 
     UsersService
         .addNewUser(knexInstance, newUser)
-        .then(newUser => res.json(newUser))
+        .then(newUser => res
+                            .status(201)
+                            .json(newUser))
         .catch(next);
 });
 
