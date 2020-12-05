@@ -33,6 +33,13 @@ const MedsLogsService = {
                 .where({
                     user_id
                 })
+    },
+    deleteMedsLogsById(knex, id) {
+        return knex
+                .from('meds_logs')
+                .where({id})
+                .delete()
+                .returning('*')
     }
 }
 

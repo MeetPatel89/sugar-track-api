@@ -25,6 +25,13 @@ const MealsLogsService = {
                 .where({
                     user_id
                 })
+    },
+    deleteMealsLogsById(knex, id) {
+        return knex
+                .from('meals_logs')
+                .where({id})
+                .delete()
+                .returning('*')
     }
 }
 

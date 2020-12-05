@@ -142,6 +142,35 @@ app.get('glucose_logs/:date_time', (req, res, next) => {
         .catch(next)
 })
 
+app.delete('/glucose_logs/:id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+    GlucoseLogsService
+        .deleteGlucoseLogById(knexInstance, id)
+        .then(() => res.status(204).end())
+        .catch(next)
+})
+
+app.delete('/meds_logs/:id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+
+    MedsLogsService
+        .deleteMedsLogsById(knexInstance, id)
+        .then(() => res.status(204).end())
+        .catch(next)
+        
+})
+
+app.delete('/meals_logs/:id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+
+    MealsLogsService
+        .deleteMealsLogsById(knexInstance, id)
+        .then(() => res.status(204).end())
+        .catch(next)
+})
 
 app.get('/meds_logs', (req, res, next) => {
     const knexInstance = req.app.get('db');
