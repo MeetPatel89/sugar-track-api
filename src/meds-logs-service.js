@@ -40,6 +40,22 @@ const MedsLogsService = {
                 .where({id})
                 .delete()
                 .returning('*')
+    },
+    
+    updateMedsLog(knex, id, newMedsLog) {
+        return knex('meds_logs')
+                .where({id})
+                .update(newMedsLog)
+                .returning('*')
+    },
+    getMedsLogById(knex, user_id, id) {
+        return knex 
+                .select('*')
+                .from('meds_logs')
+                .where({
+                    user_id,
+                    id
+                })
     }
 }
 

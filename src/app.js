@@ -172,6 +172,25 @@ app.delete('/meals_logs/:id', (req, res, next) => {
         .catch(next)
 })
 
+app.patch('/glucose_logs/:user_id/:id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { user_id, id } = req.params;
+    const { glucose, date_time } = req.body;
+    console.log(req.body);
+    const newGlucoseLog = {
+        glucose,
+        date_time
+    }
+    GlucoseLogsService
+        .updateGlucoseLog(knexInstance, id, newGlucoseLog)
+        .then(updatedGlucoseLog => res.send(updatedGlucoseLog))
+        .catch(next)
+    
+    
+})
+
+
+
 app.get('/meds_logs', (req, res, next) => {
     const knexInstance = req.app.get('db');
 

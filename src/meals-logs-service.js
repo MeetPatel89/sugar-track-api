@@ -32,6 +32,23 @@ const MealsLogsService = {
                 .where({id})
                 .delete()
                 .returning('*')
+    },
+    
+    updateMealsLog(knex, id, newMealLog) {
+        return knex('meals_logs')
+                .where({id})
+                .update(newMealLog)
+                .returning('*')
+    },
+    
+    getMealsLogById(knex, user_id, id) {
+        return knex 
+                .select('*')
+                .from('meals_logs')
+                .where({
+                    user_id,
+                    id
+                })
     }
 }
 

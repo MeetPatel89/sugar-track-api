@@ -53,6 +53,21 @@ const GlucoseLogsService = {
                     user_id
                 })
                 .orderBy(sort)
+    },
+    updateGlucoseLog(knex, id, newGlucoseLog) {
+        return knex('glucose_logs')
+                .where({id})
+                .update(newGlucoseLog)
+                .returning('*')
+    },
+    getGlucoseLogsById(knex, id) {
+        return knex
+                .select('*')
+                .from('glucose_logs')
+                .where({
+                    
+                    id
+                })
     }
 }
 
