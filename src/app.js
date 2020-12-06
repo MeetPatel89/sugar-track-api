@@ -174,7 +174,7 @@ app.delete('/meals_logs/:id', (req, res, next) => {
 
 app.patch('/glucose_logs/:user_id/:id', (req, res, next) => {
     const knexInstance = req.app.get('db');
-    const { user_id, id } = req.params;
+    const { id } = req.params;
     const { glucose, date_time } = req.body;
     console.log(req.body);
     const newGlucoseLog = {
@@ -187,6 +187,34 @@ app.patch('/glucose_logs/:user_id/:id', (req, res, next) => {
         .catch(next)
     
     
+})
+
+app.patch('/meals_logs/:user_id/:id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+    const { meals, date_time } = req.body;
+    const newMealLog = {
+        meals,
+        date_time
+    }
+    MealsLogsService
+        .updateMealsLog(knexInstance, id, newMealLog)
+        .then(updatedMealLog => res.send(updatedMealLog))
+        .catch(next)
+})
+
+app.patch('/meds_logs/:user_id/:id', (req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+    const { meds, date_time } = req.body;
+    const newMedLog = {
+        meds,
+        date_time
+    }
+    MedsLogsService
+        .updateMedsLog(knexInstance, id, newMedLog)
+        .then(updatedMedLog => res.send(updatedMedLog))
+        .catch(next)
 })
 
 
