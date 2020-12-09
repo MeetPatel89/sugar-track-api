@@ -8,27 +8,25 @@ const GlucoseLogsService = {
   deleteGlucoseLogById(knex, id) {
     return knex.from('glucose_logs').where({ id }).delete().returning('*');
   },
-  getGlucoseLogsByUserId(knex, user_id) {
-    return knex.select('*').from('glucose_logs').where({
-      user_id,
-    });
+  getGlucoseLogsByUserId(knex, userId) {
+    return knex.select('*').from('glucose_logs').where({ user_id: userId });
   },
   sortGlucoseLogs(knex, sort) {
     return knex.from('glucose_logs').orderBy(sort);
   },
-  sortGlucoseLogsByDateTime(knex, user_id, sort) {
+  sortGlucoseLogsByDateTime(knex, userId, sort) {
     return knex
       .from('glucose_logs')
       .where({
-        user_id,
+        user_id: userId,
       })
       .orderBy(sort);
   },
-  sortAllLogsByDateTime(knex, user_id, sort) {
+  sortAllLogsByDateTime(knex, userId, sort) {
     return knex
       .from('glucose_logs', 'meals_logs', 'meds_logs')
       .where({
-        user_id,
+        user_id: userId,
       })
       .orderBy(sort);
   },

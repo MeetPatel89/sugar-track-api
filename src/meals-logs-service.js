@@ -5,17 +5,17 @@ const MealsLogsService = {
   insertMealsLog(knex, newMealsLog) {
     return knex.insert(newMealsLog).into('meals_logs').returning('*');
   },
-  sortMealsLogsByDateTime(knex, user_id, sort) {
+  sortMealsLogsByDateTime(knex, userId, sort) {
     return knex
       .from('meals_logs')
       .where({
-        user_id,
+        user_id: userId,
       })
       .orderBy(sort);
   },
-  getMealsLogsByUserId(knex, user_id) {
+  getMealsLogsByUserId(knex, userId) {
     return knex.from('meals_logs').select('*').where({
-      user_id,
+      user_id: userId,
     });
   },
   deleteMealsLogsById(knex, id) {
@@ -24,9 +24,9 @@ const MealsLogsService = {
   updateMealsLog(knex, id, newMealLog) {
     return knex('meals_logs').where({ id }).update(newMealLog).returning('*');
   },
-  getMealsLogById(knex, user_id, id) {
+  getMealsLogById(knex, userId, id) {
     return knex.select('*').from('meals_logs').where({
-      user_id,
+      user_id: userId,
       id,
     });
   },

@@ -31,26 +31,24 @@ usersRouter
       logger.error('Password is required');
       return res.status(400).send('Invalid data');
     }
-    UsersService.addNewUser(knexInstance, newUser)
+    return UsersService.addNewUser(knexInstance, newUser)
       .then((newUser) => res.status(201).json(newUser))
       .catch(next);
   });
 
-usersRouter
-    .route('/users/:username')
-    .get((req, res, next) => {
-        const knexInstance = req.app.get('db');
-        const { username } = req.params;
+usersRouter.route('/users/:username').get((req, res, next) => {
+  const knexInstance = req.app.get('db');
+  const { username } = req.params;
 
-        UsersService.getUserByUsername(knexInstance, username)
-            .then((user) => {
-            if (!user.length) {
-                logger.error(`User with username ${username} not found`);
-                return res.status(404).send('User not found');
-            }
-            return res.json(user);
-            })
-            .catch(next);
+  UsersService.getUserByUsername(knexInstance, username)
+    .then((user) => {
+      if (!user.length) {
+        logger.error(`User with username ${username} not found`);
+        return res.status(404).send('User not found');
+      }
+      return res.json(user);
+    })
+    .catch(next);
 });
 
 module.exports = usersRouter;

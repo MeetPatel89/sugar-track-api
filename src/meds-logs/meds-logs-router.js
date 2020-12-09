@@ -29,7 +29,7 @@ medsLogsRouter
       logger.error('Meds is required');
       return res.status(400).send('Invalid data');
     }
-    MedsLogsService.insertMedLog(knexInstance, newMedLog)
+    return MedsLogsService.insertMedLog(knexInstance, newMedLog)
       .then((medLog) => res.json(medLog))
       .catch(next);
   });
@@ -65,7 +65,7 @@ medsLogsRouter
       );
       return res.status(404).send('Invalid data');
     }
-    MedsLogsService.updateMedsLog(knexInstance, id, newMedLog)
+    return MedsLogsService.updateMedsLog(knexInstance, id, newMedLog)
       .then((updatedMedLog) => res.send(updatedMedLog))
       .catch(next);
   });

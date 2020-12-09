@@ -10,17 +10,17 @@ const MedsLogsService = {
       dateTime,
     });
   },
-  sortMedsLogsByDateTime(knex, user_id, sort) {
+  sortMedsLogsByDateTime(knex, userId, sort) {
     return knex
       .from('meds_logs')
       .where({
-        user_id,
+        user_id: userId,
       })
       .orderBy(sort);
   },
-  getMedsLogsByUserId(knex, user_id) {
+  getMedsLogsByUserId(knex, userId) {
     return knex.select('*').from('meds_logs').where({
-      user_id,
+      user_id: userId,
     });
   },
   deleteMedsLogsById(knex, id) {
@@ -30,9 +30,9 @@ const MedsLogsService = {
   updateMedsLog(knex, id, newMedsLog) {
     return knex('meds_logs').where({ id }).update(newMedsLog).returning('*');
   },
-  getMedsLogById(knex, user_id, id) {
+  getMedsLogById(knex, userId, id) {
     return knex.select('*').from('meds_logs').where({
-      user_id,
+      user_id: userId,
       id,
     });
   },

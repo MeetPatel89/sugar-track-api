@@ -29,7 +29,7 @@ mealsLogsRouter
       logger.error('Meals is required');
       return res.status(400).send('Invalid data');
     }
-    MealsLogsService.insertMealsLog(knexInstance, newMealsLog)
+    return MealsLogsService.insertMealsLog(knexInstance, newMealsLog)
       .then((mealsLog) => res.json(mealsLog))
       .catch(next);
   });
@@ -37,37 +37,37 @@ mealsLogsRouter
 mealsLogsRouter
   .route('/meals_logs/:id')
   .delete((req, res, next) => {
-      const knexInstance = req.app.get('db');
-      const { id } = req.params;
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
 
-      MealsLogsService.deleteMealsLogsById(knexInstance, id)
-        .then((mealsLog) => {
-          if (!mealsLog.length) {
-            logger.error(`Meals log with id ${id} does not exist`);
-            return res.status(404).send('Meals log not found');
-          }
-          return res.status(204).end();
-        })
-        .catch(next);
+    MealsLogsService.deleteMealsLogsById(knexInstance, id)
+      .then((mealsLog) => {
+        if (!mealsLog.length) {
+          logger.error(`Meals log with id ${id} does not exist`);
+          return res.status(404).send('Meals log not found');
+        }
+        return res.status(204).end();
+      })
+      .catch(next);
   })
   .patch(bodyParser, (req, res, next) => {
-      const knexInstance = req.app.get('db');
-      const { id } = req.params;
-      const meals = req.body.meals;
-      const dateTime = req.body.date_time;
-      const newMealLog = {
-        meals,
-        date_time: dateTime,
-      };
-      if (!meals && !dateTime) {
-        logger.error(
-          'At least one of "meals" or "date_time" required to edit log'
-        );
-        return res.status(404).send('Invalid data');
-      }
-      MealsLogsService.updateMealsLog(knexInstance, id, newMealLog)
-        .then((updatedMealLog) => res.send(updatedMealLog))
-        .catch(next);
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+    const meals = req.body.meals;
+    const dateTime = req.body.date_time;
+    const newMealLog = {
+      meals,
+      date_time: dateTime,
+    };
+    if (!meals && !dateTime) {
+      logger.error(
+        'At least one of "meals" or "date_time" required to edit log'
+      );
+      return res.status(404).send('Invalid data');
+    }
+    return MealsLogsService.updateMealsLog(knexInstance, id, newMealLog)
+      .then((updatedMealLog) => res.send(updatedMealLog))
+      .catch(next);
   });
 
 module.exports = mealsLogsRouter;
