@@ -4,12 +4,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
-const UsersService = require('./users-service');
 const GlucoseLogsService = require('./glucose-logs-service');
 const logger = require('./logger');
 const MedsLogsService = require('./meds-logs-service');
 const MealsLogsService = require('./meals-logs-service');
-
+const usersRouter = require('./users/users-router');
 const app = express();
 
 const bodyParser = express.json();
@@ -21,10 +20,13 @@ app.use(bodyParser);
 app.use(helmet());
 app.use(cors());
 
+app.use(usersRouter);
+
 app.get('/', (req, res) => {
   res.status(200).send('Hello, sugar-track-api!');
 });
 
+/*
 app.get('/users', (req, res, next) => {
   const knexInstance = req.app.get('db');
   UsersService.getAllUsers(knexInstance)
@@ -33,7 +35,9 @@ app.get('/users', (req, res, next) => {
     })
     .catch(next);
 });
+*/
 
+/*
 app.post('/users', (req, res, next) => {
   const knexInstance = req.app.get('db');
   const newUser = req.body;
@@ -54,7 +58,8 @@ app.post('/users', (req, res, next) => {
     .then((newUser) => res.status(201).json(newUser))
     .catch(next);
 });
-
+*/
+/*
 app.get('/users/:username', (req, res, next) => {
   const knexInstance = req.app.get('db');
   const username = req.params.username;
@@ -69,7 +74,7 @@ app.get('/users/:username', (req, res, next) => {
     })
     .catch(next);
 });
-
+*/
 /*
 app.get('/glucose_logs/:user_id', (req, res, next) => {
   const knexInstance = req.app.get('db');
