@@ -1,26 +1,45 @@
-# Express Boilerplate!
+# Sugar-Track (Server)
+App Live at https://sugar-track-client.vercel.app
 
-This is a boilerplate project used for starting new projects!
+Backend server hosted at https://stark-tor-92394.herokuapp.com/
+### Table of Contents
+- [Description](#description)
+- [API endpoints](#api-endpoints)
+- [Tech stack](#tech-stack)
 
-## Set up
+## Description
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+This is the backend server sustaining the live frontend app linked above.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## API endpoints
 
-## Scripts
+- For glucose logs:
+    - GET /api/glucose_logs responds with all the glucose logs
+    - GET /api/glucose_logs:id responds with the glucose log specified by id
+    - POST /api/glucose_logs creates a new glucose log
+    - DELETE /api/glucose_logs/:id deletes the glucose log specified by id
+    - PATCH /api/glucose_logs/:id edits the glucose log specified by id
 
-Start the application `npm start`
+- For meals logs:
+    - GET /api/meals_logs responds with all the meals logs
+    - GET /api/meals_logs:id responds with the meals log specified by id
+    - POST /api/meals_logs creates a new meals log
+    - DELETE /api/meals_logs/:id deletes the meals log specified by id
+    - PATCH /api/meals_logs/:id edits the meals log specified by id
 
-Start nodemon for the application `npm run dev`
+- For medications logs:
+    - GET /api/meds_logs responds with all the meds logs
+    - GET /api/meds_logs:id responds with the meds log specified by id
+    - POST /api/meds_logs creates a new meds log
+    - DELETE /api/meds_logs/:id deletes the meds log specified by id
+    - PATCH /api/meds_logs/:id edits the meds log specified by id
 
-Run the tests `npm test`
+## Tech stack
 
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+- JS/ES6
+- Node.js
+- Express.js
+- Knex
+- PostgreSQL
+- CORS
+- Helmet
