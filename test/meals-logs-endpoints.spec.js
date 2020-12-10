@@ -11,7 +11,7 @@ describe('Meals Logs Endpoints', () => {
   before('make knex instance', () => {
     db = knex({
       client: 'pg',
-      connection: process.env.TEST_DB_URL,
+      connection: process.env.TEST_DATABASE_URL,
     });
     app.set('db', db);
   });
@@ -36,21 +36,21 @@ describe('Meals Logs Endpoints', () => {
     afterEach('cleanup', () => db('users').delete());
     afterEach('cleanup', () => db('meals_logs').delete());
 
-    describe('GET /meals_logs', () => {
-      it('GET /meals_logs responds with 200 and all of the meals logs', () => {
-        return supertest(app).get('/meals_logs').expect(200);
+    describe('GET /api/meals_logs', () => {
+      it('GET /api/meals_logs responds with 200 and all of the meals logs', () => {
+        return supertest(app).get('/api/meals_logs').expect(200);
       });
     });
 
-    describe('POST /meals_logs', () => {
-      it('POST /meals_logs creates a new meals_log, responding with 201 and the newly created meals log', () => {
+    describe('POST /api/meals_logs', () => {
+      it('POST /api/meals_logs creates a new meals_log, responding with 201 and the newly created meals log', () => {
         const newMealsLog = {
           meals: 'sandwich',
           user_id: 2,
           date_time: '2020-12-08T01:59:00.000Z',
         };
         return supertest(app)
-          .post('/meals_logs')
+          .post('/api/meals_logs')
           .send(newMealsLog)
           .expect(201)
           .expect((res) => {
@@ -59,20 +59,20 @@ describe('Meals Logs Endpoints', () => {
             expect(res.body[0].date_time).to.eql(newMealsLog.date_time);
             expect(res.body[0]).to.have.property('id');
             expect(res.headers.location).to.eql(
-              `/meals_logs/${res.body[0].id}`
+              `/api/meals_logs/${res.body[0].id}`
             );
           });
       });
     });
 
-    describe('GET /meals_logs/:id', () => {
-      it('GET /meals_logs/:id responds with 200 and the meals log specified by id', () => {
+    describe('GET /api/meals_logs/:id', () => {
+      it('GET /api/meals_logs/:id responds with 200 and the meals log specified by id', () => {
         const idToGet = 3;
         const specifiedMealsLog = testMealsLogs.filter(
           (mealsLog) => mealsLog.id === idToGet
         );
         return supertest(app)
-          .get(`/meals_logs/${idToGet}`)
+          .get(`/api/meals_logs/${idToGet}`)
           .expect(200)
           .then((res) => {
             expect(res.body).to.eql(specifiedMealsLog);
@@ -80,30 +80,30 @@ describe('Meals Logs Endpoints', () => {
       });
     });
 
-    describe('DELETE /meals_logs/:id', () => {
-      it('DELETE /meals_logs/:id responds with 204 and removes the meals log', () => {
+    describe('DELETE /api/meals_logs/:id', () => {
+      it('DELETE /api/meals_logs/:id responds with 204 and removes the meals log', () => {
         const idToRemove = 2;
         const remainingMealsLogs = testMealsLogs.filter(
           (mealsLog) => mealsLog.id !== idToRemove
         );
         return supertest(app)
-          .delete(`/meals_logs/${idToRemove}`)
+          .delete(`/api/meals_logs/${idToRemove}`)
           .expect(204)
           .then((res) =>
-            supertest(app).get('/meals_logs').expect(remainingMealsLogs)
+            supertest(app).get('/api/meals_logs').expect(remainingMealsLogs)
           );
       });
     });
 
-    describe('PATCH /meals_logs/:id', () => {
-      it('PATCH /meals_logs/:id responds with 201 and the newly edited meals log', () => {
+    describe('PATCH /api/meals_logs/:id', () => {
+      it('PATCH /api/meals_logs/:id responds with 201 and the newly edited meals log', () => {
         const idToEdit = 2;
         const editedMealsLogFields = {
           meals: 'A very bland British food',
           date_time: '2030-12-08T01:59:00.000Z',
         };
         return supertest(app)
-          .patch(`/meals_logs/${idToEdit}`)
+          .patch(`/api/meals_logs/${idToEdit}`)
           .send(editedMealsLogFields)
           .expect(201)
           .then((res) => {

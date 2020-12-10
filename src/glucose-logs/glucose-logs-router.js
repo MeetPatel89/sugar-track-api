@@ -7,7 +7,7 @@ const glucoseLogsRouter = express.Router();
 const bodyParser = express.json();
 
 glucoseLogsRouter
-  .route('/glucose_logs')
+  .route('/api/glucose_logs')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
 
@@ -31,12 +31,12 @@ glucoseLogsRouter
       return res.status(400).send('Invalid data');
     }
     return GlucoseLogsService.insertGlucoseLog(knexInstance, newGlucoseLog)
-      .then((glucoseLog) => res.status(201).location(`/glucose_logs/${glucoseLog[0].id}`).json(glucoseLog))
+      .then((glucoseLog) => res.status(201).location(`/api/glucose_logs/${glucoseLog[0].id}`).json(glucoseLog))
       .catch(next);
   });
 
 glucoseLogsRouter
-  .route('/glucose_logs/:id')
+  .route('/api/glucose_logs/:id')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
     const { id } = req.params;

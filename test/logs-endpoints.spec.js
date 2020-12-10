@@ -16,7 +16,7 @@ describe('Logs Endpoints', () => {
     before('make knex instance', () => {
       db = knex({
         client: 'pg',
-        connection: process.env.TEST_DB_URL,
+        connection: process.env.TEST_DATABASE_URL,
       });
       app.set('db', db);
     });
@@ -59,15 +59,15 @@ describe('Logs Endpoints', () => {
 
         afterEach('cleanup', () => db('meds_logs').delete());
 
-        describe('GET /logs/:userId', () => {
-            it('GET /logs/:userId responds with 200 and all of the logs of the specified userId', () => {
+        describe('GET /api/logs/:userId', () => {
+            it('GET /api/logs/:userId responds with 200 and all of the logs of the specified userId', () => {
                 const userIdRequest = 2;
                 const expectedGlucoseLogs = testGlucoseLogs.filter(glucoseLog => glucoseLog.user_id === userIdRequest)
                 const expectedMealsLogs = testMealsLogs.filter(mealsLog => mealsLog.user_id === userIdRequest)
                 const expectedMedsLogs = testMedsLogs.filter(medsLog => medsLog.user_id === userIdRequest)
                 const expectedLogs = expectedGlucoseLogs.concat(expectedMealsLogs).concat(expectedMedsLogs)
                 return supertest(app)
-                        .get(`/logs/${userIdRequest}`)
+                        .get(`/api/logs/${userIdRequest}`)
                         .expect(200)
                         .then(res => {
                             expect(res.body).to.deep.equalInAnyOrder(expectedLogs)

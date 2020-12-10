@@ -6,7 +6,7 @@ const medsLogsRouter = express.Router();
 const bodyParser = express.json();
 
 medsLogsRouter
-  .route('/meds_logs')
+  .route('/api/meds_logs')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
 
@@ -30,12 +30,12 @@ medsLogsRouter
       return res.status(400).send('Invalid data');
     }
     return MedsLogsService.insertMedLog(knexInstance, newMedLog)
-      .then((medLog) => res.status(201).location(`/meds_logs/${medLog[0].id}`).json(medLog))
+      .then((medLog) => res.status(201).location(`/api/meds_logs/${medLog[0].id}`).json(medLog))
       .catch(next);
   });
 
 medsLogsRouter
-  .route('/meds_logs/:id')
+  .route('/api/meds_logs/:id')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
     const { id } = req.params;

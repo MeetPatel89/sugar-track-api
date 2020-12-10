@@ -6,7 +6,7 @@ const MedsLogsService = require('../meds-logs-service');
 
 const logsRouter = express.Router();
 
-logsRouter.route('/logs/:userId').get((req, res, next) => {
+logsRouter.route('/api/logs/:userId').get((req, res, next) => {
   const knexInstance = req.app.get('db');
   const { userId } = req.params;
   const logs = [];

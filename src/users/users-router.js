@@ -6,7 +6,7 @@ const usersRouter = express.Router();
 const bodyParser = express.json();
 
 usersRouter
-  .route('/users')
+  .route('/api/users')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
     UsersService.getAllUsers(knexInstance)
@@ -32,11 +32,11 @@ usersRouter
       return res.status(400).send('Invalid data');
     }
     return UsersService.addNewUser(knexInstance, newUser)
-      .then((newUser) => res.status(201).location(`/users/${newUser[0].username}`).json(newUser))
+      .then((newUser) => res.status(201).location(`/api/users/${newUser[0].username}`).json(newUser))
       .catch(next);
   });
 
-usersRouter.route('/users/:username').get((req, res, next) => {
+usersRouter.route('/api/users/:username').get((req, res, next) => {
   const knexInstance = req.app.get('db');
   const { username } = req.params;
 

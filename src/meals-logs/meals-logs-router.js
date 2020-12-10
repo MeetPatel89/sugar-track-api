@@ -6,7 +6,7 @@ const mealsLogsRouter = express.Router();
 const bodyParser = express.json();
 
 mealsLogsRouter
-  .route('/meals_logs')
+  .route('/api/meals_logs')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
 
@@ -31,13 +31,13 @@ mealsLogsRouter
     }
     return MealsLogsService.insertMealsLog(knexInstance, newMealsLog)
       .then((mealsLog) =>
-        res.location(`/meals_logs/${mealsLog[0].id}`).status(201).json(mealsLog)
+        res.location(`/api/meals_logs/${mealsLog[0].id}`).status(201).json(mealsLog)
       )
       .catch(next);
   });
 
 mealsLogsRouter
-  .route('/meals_logs/:id')
+  .route('/api/meals_logs/:id')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db');
     const { id } = req.params;

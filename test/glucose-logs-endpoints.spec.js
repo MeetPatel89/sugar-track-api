@@ -11,7 +11,7 @@ describe('Glucose Logs Endpoints', () => {
     before('make knex instance', () => {
       db = knex({
         client: 'pg',
-        connection: process.env.TEST_DB_URL,
+        connection: process.env.TEST_DATABASE_URL,
       });
       app.set('db', db);
     });
@@ -38,14 +38,14 @@ describe('Glucose Logs Endpoints', () => {
         afterEach('cleanup', () => db('glucose_logs').delete());
         
 
-        describe('GET /glucose_logs', () => {
-          it('GET /glucose_logs responds with 200 and all of the glucose logs', () => {
-            return supertest(app).get('/glucose_logs').expect(200);
+        describe('GET /api/glucose_logs', () => {
+          it('GET /api/glucose_logs responds with 200 and all of the glucose logs', () => {
+            return supertest(app).get('/api/glucose_logs').expect(200);
           });
         });
 
-        describe('POST /glucose_logs', () => {
-            it('POST /glucose_logs creates a new glucose_log, responding with 201 and the newly created glucose_log', () => {
+        describe('POST /api/glucose_logs', () => {
+            it('POST /api/glucose_logs creates a new glucose_log, responding with 201 and the newly created glucose_log', () => {
                 
                 const newGlucoseLog = {
                   glucose: 250,
@@ -53,7 +53,7 @@ describe('Glucose Logs Endpoints', () => {
                   date_time: '2020-12-08T01:59:00.000Z',
                 };
                 return supertest(app)
-                    .post('/glucose_logs')
+                    .post('/api/glucose_logs')
                     .send(newGlucoseLog)
                     .expect(201)
                     .expect(res => {
@@ -61,18 +61,18 @@ describe('Glucose Logs Endpoints', () => {
                         expect(res.body[0].user_id).to.eql(newGlucoseLog.user_id)
                         expect(res.body[0].date_time).to.eql(newGlucoseLog.date_time)
                         expect(res.body[0]).to.have.property('id')
-                        expect(res.headers.location).to.eql(`/glucose_logs/${res.body[0].id}`)
+                        expect(res.headers.location).to.eql(`/api/glucose_logs/${res.body[0].id}`)
                     })
               }
             );
         })
 
-        describe('GET /glucose_logs/:id', () => {
-            it('GET /glucose_logs/:id responds with 200 and the glucose log specified by id', () => {
+        describe('GET /api/glucose_logs/:id', () => {
+            it('GET /api/glucose_logs/:id responds with 200 and the glucose log specified by id', () => {
                 const idToGet = 3;
                 const specifiedGlucoseLog = testGlucoseLogs.filter(glucoseLog => glucoseLog.id === idToGet);
                 return supertest(app)
-                        .get(`/glucose_logs/${idToGet}`)
+                        .get(`/api/glucose_logs/${idToGet}`)
                         .expect(200)
                         .then(res => {
                             expect(res.body).to.eql(specifiedGlucoseLog)
@@ -80,31 +80,31 @@ describe('Glucose Logs Endpoints', () => {
             })
         })
 
-        describe('DELETE /glucose_logs/:id', () => {
-            it('DELETE /glucose_logs/:id responds with 204 and removes the glucose log', () => {
+        describe('DELETE /api/glucose_logs/:id', () => {
+            it('DELETE /api/glucose_logs/:id responds with 204 and removes the glucose log', () => {
                 const idToRemove = 2;
                 const remainingGlucoseLogs = testGlucoseLogs.filter(glucoseLog => glucoseLog.id !== idToRemove);
                 return supertest(app)
-                        .delete(`/glucose_logs/${idToRemove}`)
+                        .delete(`/api/glucose_logs/${idToRemove}`)
                         .expect(204)
                         .then(res => 
                             supertest(app)
-                            .get('/glucose_logs')
+                            .get('/api/glucose_logs')
                             .expect(remainingGlucoseLogs)
                             )
 
             })
         })
 
-        describe('PATCH /glucose_logs/:id', () => {
-            it('PATCH /glucose_logs/:id responds with 201 and the newly edited glucose log', () => {
+        describe('PATCH /api/glucose_logs/:id', () => {
+            it('PATCH /api/glucose_logs/:id responds with 201 and the newly edited glucose log', () => {
                 const idToEdit = 2;
                 const editedGlucoseLogFields = {
                   glucose: 2000,
                   date_time: '2030-12-08T01:59:00.000Z',
                 };
                 return supertest(app)
-                        .patch(`/glucose_logs/${idToEdit}`)
+                        .patch(`/api/glucose_logs/${idToEdit}`)
                         .send(editedGlucoseLogFields)
                         .expect(201)
                         .then(res => {
