@@ -32,7 +32,7 @@ usersRouter
       return res.status(400).send('Invalid data');
     }
     return UsersService.addNewUser(knexInstance, newUser)
-      .then((newUser) => res.status(201).json(newUser))
+      .then((newUser) => res.status(201).location(`/users/${newUser[0].username}`).json(newUser))
       .catch(next);
   });
 

@@ -1,0 +1,15 @@
+{"message":"Fullname is required","level":"error"}
+{"message":"User with username undefined not found","level":"error"}
+{"message":"User with username undefined not found","level":"error"}
+{"message":"User with username undefined not found","level":"error"}
+{"message":"User with username undefined not found","level":"error"}
+{"message":"User id is required","level":"error"}
+{"message":"User id is required","level":"error"}
+{"message":"Glucose log with id 24 not found","level":"error"}
+{"message":"Glucose log with id 61 not found","level":"error"}
+{"message":"Glucose log with id 54 not found","level":"error"}
+{"message":"At least one of \"glucose\" or \"date_time\" required to edit log.","level":"error"}
+{"message":"Glucose log with id 24 not found","level":"error"}
+{"message":"Glucose log with id 24 not found","level":"error"}
+{"message":"Glucose log with id 24 not found","level":"error"}
+{"message":"At least one of \"glucose\" or \"date_time\" required to edit log.","level":"error"}

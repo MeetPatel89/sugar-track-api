@@ -30,12 +30,26 @@ medsLogsRouter
       return res.status(400).send('Invalid data');
     }
     return MedsLogsService.insertMedLog(knexInstance, newMedLog)
-      .then((medLog) => res.json(medLog))
+      .then((medLog) => res.status(201).location(`/meds_logs/${medLog[0].id}`).json(medLog))
       .catch(next);
   });
 
 medsLogsRouter
   .route('/meds_logs/:id')
+  .get((req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+
+    MedsLogsService.getMedsLogById(knexInstance, id)
+      .then(medsLog => {
+        if (!medsLog.length) {
+          logger.error(`Meds log with id ${id} not found`);
+          return res.status(404).send('Meds log not found');
+        }
+        return res.status(200).json(medsLog);
+      })
+      .catch(next);
+  })
   .delete((req, res, next) => {
     const knexInstance = req.app.get('db');
     const { id } = req.params;
@@ -66,7 +80,7 @@ medsLogsRouter
       return res.status(404).send('Invalid data');
     }
     return MedsLogsService.updateMedsLog(knexInstance, id, newMedLog)
-      .then((updatedMedLog) => res.send(updatedMedLog))
+      .then((updatedMedLog) => res.status(201).json(updatedMedLog))
       .catch(next);
   });
 

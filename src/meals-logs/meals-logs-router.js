@@ -30,12 +30,26 @@ mealsLogsRouter
       return res.status(400).send('Invalid data');
     }
     return MealsLogsService.insertMealsLog(knexInstance, newMealsLog)
-      .then((mealsLog) => res.json(mealsLog))
+      .then((mealsLog) =>
+        res.location(`/meals_logs/${mealsLog[0].id}`).status(201).json(mealsLog)
+      )
       .catch(next);
   });
 
 mealsLogsRouter
   .route('/meals_logs/:id')
+  .get((req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+
+    MealsLogsService.getMealsLogById(knexInstance, id).then((mealsLog) => {
+      if (!mealsLog.length) {
+        logger.error(`Meals log with id ${id} does not exist`);
+        return res.status(404).send('Meals log not found');
+      }
+      return res.status(200).json(mealsLog);
+    });
+  })
   .delete((req, res, next) => {
     const knexInstance = req.app.get('db');
     const { id } = req.params;
@@ -66,7 +80,7 @@ mealsLogsRouter
       return res.status(404).send('Invalid data');
     }
     return MealsLogsService.updateMealsLog(knexInstance, id, newMealLog)
-      .then((updatedMealLog) => res.send(updatedMealLog))
+      .then((updatedMealLog) => res.status(201).json(updatedMealLog))
       .catch(next);
   });
 

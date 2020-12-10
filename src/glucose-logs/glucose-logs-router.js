@@ -31,12 +31,24 @@ glucoseLogsRouter
       return res.status(400).send('Invalid data');
     }
     return GlucoseLogsService.insertGlucoseLog(knexInstance, newGlucoseLog)
-      .then((glucoseLog) => res.json(glucoseLog))
+      .then((glucoseLog) => res.status(201).location(`/glucose_logs/${glucoseLog[0].id}`).json(glucoseLog))
       .catch(next);
   });
 
 glucoseLogsRouter
   .route('/glucose_logs/:id')
+  .get((req, res, next) => {
+    const knexInstance = req.app.get('db');
+    const { id } = req.params;
+    GlucoseLogsService.deleteGlucoseLogById(knexInstance, id)
+      .then(glucoseLog => {
+        if (!glucoseLog.length) {
+          logger.error(`Glucose log with id ${id} not found`);
+          return res.status(404).send('Glucose log not found')
+        }
+        return res.status(200).json(glucoseLog);
+      })
+  })
   .delete((req, res, next) => {
     const knexInstance = req.app.get('db');
     const { id } = req.params;
@@ -66,7 +78,7 @@ glucoseLogsRouter
       return res.status(404).send('Invalid data');
     }
     return GlucoseLogsService.updateGlucoseLog(knexInstance, id, newGlucoseLog)
-      .then((updatedGlucoseLog) => res.send(updatedGlucoseLog))
+      .then((updatedGlucoseLog) => res.status(201).json(updatedGlucoseLog))
       .catch(next);
   });
 

@@ -24,9 +24,8 @@ const MealsLogsService = {
   updateMealsLog(knex, id, newMealLog) {
     return knex('meals_logs').where({ id }).update(newMealLog).returning('*');
   },
-  getMealsLogById(knex, userId, id) {
+  getMealsLogById(knex, id) {
     return knex.select('*').from('meals_logs').where({
-      user_id: userId,
       id,
     });
   },

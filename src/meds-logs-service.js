@@ -30,9 +30,8 @@ const MedsLogsService = {
   updateMedsLog(knex, id, newMedsLog) {
     return knex('meds_logs').where({ id }).update(newMedsLog).returning('*');
   },
-  getMedsLogById(knex, userId, id) {
+  getMedsLogById(knex, id) {
     return knex.select('*').from('meds_logs').where({
-      user_id: userId,
       id,
     });
   },
