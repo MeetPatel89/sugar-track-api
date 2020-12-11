@@ -39,8 +39,4 @@ const errorHandler = (error, req, res, next) => {
 
 app.use(errorHandler);
 
-app.get('/api', (req, res) => {
-  res.send('Hello, sugar-track-api!');
-});
-
 module.exports = app;
