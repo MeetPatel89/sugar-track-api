@@ -33,7 +33,6 @@ app.get('/', (req, res) => {
   );
 });
 
-/*
 const errorHandler = (error, req, res, next) => {
   let response;
   if (NODE_ENV === 'production') {
@@ -46,5 +45,5 @@ const errorHandler = (error, req, res, next) => {
 };
 
 app.use(errorHandler);
-*/
+
 module.exports = app;
