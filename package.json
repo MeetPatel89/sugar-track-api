@@ -2,7 +2,7 @@
   "name": "sugar-track-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "predeploy": "npm audit",
@@ -24,13 +24,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "deep-equal-in-any-order": "^1.0.28",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
     "helmet": "^4.2.0",
-    "knex": "^0.21.12",
+    "knex": "^0.21.16",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "pg": "^8.5.1",
+    "pg": "^7.18.2",
     "winston": "^3.3.3",
     "postgrator-cli": "^3.2.0"
   },
