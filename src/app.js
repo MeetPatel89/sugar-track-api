@@ -26,6 +26,13 @@ app.use(mealsLogsRouter);
 app.use(medsLogsRouter);
 app.use(logsRouter);
 
+app.get('/', (req, res) => {
+  res.status(200);
+  res.send(
+    'Hello, the backend works. It is the database which is problematic!'
+  );
+});
+
 const errorHandler = (error, req, res, next) => {
   let response;
   if (NODE_ENV === 'production') {
