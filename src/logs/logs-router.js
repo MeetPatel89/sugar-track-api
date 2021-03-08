@@ -27,8 +27,7 @@ logsRouter.route('/api/logs/:userId').get((req, res, next) => {
                 }
               });
               if (!logs.length) {
-                logger.error(`Logs for user id ${userId} do not exist`);
-                return res.status(404).send('Logs not found');
+                return res.status(200).json('');
               }
               return res.json(logs);
             }
